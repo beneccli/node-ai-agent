@@ -1,0 +1,21 @@
+{
+  "PLAN:Add GET /hello": [
+    {
+      "type": "edit",
+      "description": "Add hello route",
+      "payload": {
+        "file": "src/app.js",
+        "append": "\napp.get('/hello', (req, res) => res.json({ message: 'hello world' }));\n"
+      }
+    },
+    {
+      "type": "edit",
+      "description": "Add test file",
+      "payload": {
+        "file": "test/hello.test.js",
+        "content": "const request = require('supertest');\nconst app = require('../src/app');\n\ntest('GET /hello', async () => {\n  await request(app).get('/hello').expect(200).expect({ message: 'hello world' });\n});\n"
+      }
+    },
+    { "type": "test", "description": "Run tests" }
+  ]
+}
